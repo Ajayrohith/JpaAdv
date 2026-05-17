@@ -1,13 +1,20 @@
 package com.main.JpaAdv.EntityPackage;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.Mapping;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -29,10 +36,15 @@ public class Instructor {
     @Column(name = "email")
     private String email;
 
-
-    @OneToOne(cascade = CascadeType.ALL)
+      @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetail instructorDetail;
+
+
+    @OneToMany(mappedBy = "instructor",fetch = FetchType.LAZY,
+    cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH
+    })
+    private List<course> courseRef;
 
     public Instructor() {
     }
@@ -75,25 +87,50 @@ public class Instructor {
         this.email = email;
     }
 
-    public InstructorDetail getInstructorDetail() {
-        return instructorDetail;
+    public List<course> getCourseRef() {
+        return courseRef;
     }
 
-    public void setInstructorDetail(InstructorDetail instructorDetail) {
-        this.instructorDetail = instructorDetail;
+    public void setCourseRef(List<course> courseRef) {
+        this.courseRef = courseRef;
     }
 
-    @Override
-    public String toString() {
-        return "Instructor [Id=" + Id + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email
-                + ", instructorDetail=" + instructorDetail + "]";
-    }
+      public InstructorDetail getInstructorDetail() {
+            return instructorDetail;
+        }
+
+        public void setInstructorDetail(InstructorDetail instructorDetail) {
+            this.instructorDetail = instructorDetail;
+        }
+
+  
+
+ //Adding method for bidirectional relationship
+
+       @Override
+public String toString() {
+    return "Instructor [Id=" + Id +
+            ", first_name=" + first_name +
+            ", last_name=" + last_name +
+            ", email=" + email + "]";
+}
+
+        public void add (course TempCourse)
+        {
+            //System.out.println(courseRef.toString());
+            if(courseRef == null)
+            {
+                System.out.println("creating a new array list");
+                courseRef = new ArrayList<>();
+            }
+
+            courseRef.add(TempCourse);
+            TempCourse.setInstructor(this);
+ 
+        }
+
+      
 
     
-
-
-
-    
-
 
 }
