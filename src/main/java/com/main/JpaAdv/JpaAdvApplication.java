@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import com.main.JpaAdv.DaoPackage.Dao;
 import com.main.JpaAdv.EntityPackage.Instructor;
 import com.main.JpaAdv.EntityPackage.InstructorDetail;
+import com.main.JpaAdv.EntityPackage.Review;
 import com.main.JpaAdv.EntityPackage.course;
 
 @SpringBootApplication
@@ -30,10 +31,28 @@ public class JpaAdvApplication {
 			//createIntructorwithCOurses(daoobj);
 			//FindInstructorCourse(daoobj);
 			//Find_Instructor_Along_With_Course_Lazy(daoobj);
-			DeleteInstructor(daoobj);
+		//	DeleteInstructor(daoobj);
+			Deletecourse(daoobj);
+		//	createReview(daoobj);
 		};
 	}
 
+
+	private void createReview(Dao daoobj) {
+		course tempCourse = daoobj.findCourse(3);
+
+		Review tempRev = new Review("The Best Course");
+
+		tempCourse.add(tempRev);
+
+		daoobj.SaveReview(tempCourse);
+	}
+
+	private void Deletecourse(Dao daoobj) {
+		int a = 3;
+		daoobj.DeleteCourse(a);
+		System.out.println("Course deleted successfully");
+	}
 
 	private void DeleteInstructor(Dao daoobj) {
 		
