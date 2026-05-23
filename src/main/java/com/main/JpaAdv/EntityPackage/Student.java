@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,17 +24,17 @@ public class Student {
     @Column(name = "id")
     private int id ;
 
-     @Column(name = "firstname")
+     @Column(name = "first_name")
     private String first_name;
 
-     @Column(name = "lastname")
+     @Column(name = "last_name")
     private String last_name;
 
     
      @Column(name = "email")
     private String email_id;
 
-    @ManyToMany(mappedBy = "students",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "students",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH
 })
     private List<course> Courses;
 

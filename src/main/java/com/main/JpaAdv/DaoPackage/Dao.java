@@ -5,6 +5,7 @@ import java.util.List;
 import com.main.JpaAdv.EntityPackage.Instructor;
 import com.main.JpaAdv.EntityPackage.InstructorDetail;
 import com.main.JpaAdv.EntityPackage.Review;
+import com.main.JpaAdv.EntityPackage.Student;
 import com.main.JpaAdv.EntityPackage.course;
 
 public interface Dao {
@@ -24,6 +25,12 @@ public interface Dao {
     public void DeleteCourse(int i);
 
     public void SaveReview(course Course);
+
+    public void saveStudent(Student student);
+
+    public Student findStudentwithCourse(int i);
+
+  
 
 
 }

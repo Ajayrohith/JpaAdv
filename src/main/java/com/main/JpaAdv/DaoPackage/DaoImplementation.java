@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.main.JpaAdv.EntityPackage.Instructor;
 import com.main.JpaAdv.EntityPackage.InstructorDetail;
 import com.main.JpaAdv.EntityPackage.Review;
+import com.main.JpaAdv.EntityPackage.Student;
 import com.main.JpaAdv.EntityPackage.course;
 
 import jakarta.persistence.EntityManager;
@@ -68,6 +69,7 @@ public class DaoImplementation implements Dao{
         {
             tempcourse.setInstructor(null);
         }
+    
         entmanager.remove(tempins);
 
     }
@@ -90,6 +92,20 @@ public class DaoImplementation implements Dao{
         course retCourse = entmanager.find(course.class, i);
         return retCourse;
     }
+
+    @Override
+    @Transactional
+    public void saveStudent(Student student) {
+        entmanager.merge(student);
+    }
+
+    @Override
+    public Student findStudentwithCourse(int i) {
+       Student tempStudent = entmanager.find(Student.class, i);
+       return tempStudent;
+    }
+
+   
 
     
 }

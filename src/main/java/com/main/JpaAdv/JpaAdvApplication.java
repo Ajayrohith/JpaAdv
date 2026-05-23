@@ -11,6 +11,7 @@ import com.main.JpaAdv.DaoPackage.Dao;
 import com.main.JpaAdv.EntityPackage.Instructor;
 import com.main.JpaAdv.EntityPackage.InstructorDetail;
 import com.main.JpaAdv.EntityPackage.Review;
+import com.main.JpaAdv.EntityPackage.Student;
 import com.main.JpaAdv.EntityPackage.course;
 
 @SpringBootApplication
@@ -32,11 +33,52 @@ public class JpaAdvApplication {
 			//FindInstructorCourse(daoobj);
 			//Find_Instructor_Along_With_Course_Lazy(daoobj);
 		//	DeleteInstructor(daoobj);
-			Deletecourse(daoobj);
+		//	Deletecourse(daoobj);
 		//	createReview(daoobj);
+			//AddStudentwithCourseM2M(daoobj);
+			//findStudentwithCourse(daoobj);
+			//findcourseandStudentM2m(daoobj);
+			addCoursestoStudent(daoobj);
 		};
 	}
 
+
+	private void addCoursestoStudent(Dao daoobj) {
+		Student tempStudent = daoobj.findStudentwithCourse(5);
+
+		course courseObj = new course("The third course");
+
+		tempStudent.addCourse(courseObj);
+
+		daoobj.saveStudent(tempStudent);
+
+		System.out.println("Saved Successfully");
+	}
+
+	private void findcourseandStudentM2m(Dao daoobj) {
+		course courseObj = daoobj.findCourse(5);
+		System.out.println(courseObj.toString());
+		System.out.println(courseObj.getStudents().toString());
+	}
+
+	private void findStudentwithCourse(Dao daoobj) {
+		Student tempStudent = daoobj.findStudentwithCourse(5);
+		System.out.println(tempStudent.toString());
+		System.out.println(tempStudent.getCourses().toString());
+	}
+
+	private void AddStudentwithCourseM2M(Dao daoobj) {
+		Student tempStudent1 = new Student("Ajay", "Rohith","ajayro@mashreq.com");
+
+		course course1 = new course("The first book");
+		course course2 = new course("The Second book");
+
+		tempStudent1.addCourse(course1);
+		tempStudent1.addCourse(course2);
+
+		daoobj.saveStudent(tempStudent1);
+		System.out.println("Succesfully saved instructor with course");
+	}
 
 	private void createReview(Dao daoobj) {
 		course tempCourse = daoobj.findCourse(3);

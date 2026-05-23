@@ -42,7 +42,7 @@ public class course {
     @OneToMany(mappedBy = "Course",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Review> review;
 
-    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH
     })
     @JoinTable(
         name = "course_student",
